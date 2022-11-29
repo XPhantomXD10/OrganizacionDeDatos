@@ -44,26 +44,27 @@ public class OrganizacionDatos {
                 switch(opc) {
                     case 1: // Ingresar datos
                         if (cont < claves.length) {
-                            do {
-                                System.out.print("\nIngrese el número de la clave que quiere agregar: ");
-                                claveAux = leer.nextInt();
+                            System.out.print("\nIngrese el número de la clave que quiere agregar: ");
+                            claveAux = leer.nextInt();
 
-                                existe = false;
+                            existe = false;
 
-                                if (claveAux >= 1 && claveAux <= 111) {
-                                    for (int i=0; i<cont; i++) {
-                                        if (claves[i] == claveAux) {
-                                            System.out.println("\nError: La clave ya está registrada en la base de datos\n");
-                                            existe = true;
-                                            break;
-                                        }
-                                    }   
-                                } else {
-                                    System.out.println("\nError: La clave ingresada está fuera de rango, [1-111]\n");
-                                    existe = true;
-                                }
-                            } while (existe);
-
+                            if (claveAux >= 1 && claveAux <= 111) {
+                                for (int i=0; i<cont; i++) {
+                                    if (claves[i] == claveAux) {
+                                        System.out.println("\nError: La clave ya está registrada en la base de datos\n");
+                                        existe = true;
+                                        break;
+                                    }
+                                }   
+                            } else {
+                                System.out.println("\nError: La clave ingresada está fuera de rango, [1-111]\n");
+                                existe = true;
+                            }
+                            
+                            if (existe)
+                                break;
+                            
                             claves[cont] = claveAux;
                             
                             leer.nextLine();
@@ -89,15 +90,14 @@ public class OrganizacionDatos {
                         
                         break;
                     case 2: // Consulta individual
-                        do {
-                            System.out.print("\nIngresar la clave del tinte de pelo que quiere consultar: ");
-                            claveAux = leer.nextInt();
+                        System.out.print("\nIngresar la clave del tinte de pelo que quiere consultar: ");
+                        claveAux = leer.nextInt();
 
-                            if(claveAux < 1 || claveAux > 111){
-                                System.out.println("\nERROR: La clave indicada esta fuera del rango");
-                            }
-                        } while (claveAux < 1 || claveAux > 111);
-
+                        if(claveAux < 1 || claveAux > 111){
+                            System.out.println("\nERROR: La clave indicada esta fuera del rango");
+                            break;
+                        }
+                        
                         existe = true;
 
                         for(int x=0; x<cont; x++){
@@ -174,26 +174,26 @@ public class OrganizacionDatos {
                         for(int x=0; x<cont; x++){
                             if(claves[x] == claveAux){
                                 do {
-                                    do {
-                                        System.out.println("\nM O D I F I C A C I Ó N"); // Mostrar menu de modificacion
-                                        System.out.printf("[1] Color del tinte de pelo: %s\n",colores[x]);
-                                        System.out.printf("[2] Cantidad de tinte de pelo: %.2f\n",cantidades[x]);
-                                        System.out.print("[3] Duración del tinte de pelo: ");
-                                        if (duracion[x] == 'P') {
-                                            System.out.println("Permanente");
-                                        } else if (duracion[x] == 'T') {
-                                            System.out.println("Temporal");
-                                        } else {
-                                            System.out.println("Semitemporal");
-                                        }
-                                        System.out.println("[4] Salir");
-                                        System.out.print("¿Qué opción desea? [1-4]: ");
-                                        resp = leer.nextInt();
-                                        leer.nextLine();
+                                    System.out.println("\nM O D I F I C A C I Ó N"); // Mostrar menu de modificacion
+                                    System.out.printf("[1] Color del tinte de pelo: %s\n",colores[x]);
+                                    System.out.printf("[2] Cantidad de tinte de pelo: %.2f\n",cantidades[x]);
+                                    System.out.print("[3] Duración del tinte de pelo: ");
+                                    if (duracion[x] == 'P') {
+                                        System.out.println("Permanente");
+                                    } else if (duracion[x] == 'T') {
+                                        System.out.println("Temporal");
+                                    } else {
+                                        System.out.println("Semitemporal");
+                                    }
+                                    System.out.println("[4] Salir");
+                                    System.out.print("¿Qué opción desea? [1-4]: ");
+                                    resp = leer.nextInt();
+                                    leer.nextLine();
                                         
-                                        if (resp < 1 && resp > 3) 
-                                            System.out.println("\nError: Opción invalida [1-4]");
-                                    } while (resp < 1 && resp > 3);
+                                    if (resp < 1 && resp > 3) {
+                                        System.out.println("\nError: Opción invalida [1-4]");
+                                        break;
+                                    }
                                     
                                     switch (resp) {
                                         case 1:
@@ -273,15 +273,14 @@ public class OrganizacionDatos {
 
                         break;
                     case 5: // Eliminar datos
-                        do {
-                            System.out.print("\nIngresar la clave del tinte de pelo que quiere eliminar: ");
-                            claveAux = leer.nextInt();
-                            leer.nextLine();
+                        System.out.print("\nIngresar la clave del tinte de pelo que quiere eliminar: ");
+                        claveAux = leer.nextInt();
+                        leer.nextLine();
                             
-                            if(claveAux < 1 || claveAux > 111){
-                                System.out.println("\nERROR: La clave indicada esta fuera del rango");
-                            }
-                        } while (claveAux < 1 || claveAux > 111);
+                        if(claveAux < 1 || claveAux > 111){
+                            System.out.println("\nERROR: La clave indicada esta fuera del rango");
+                            break;
+                        }
 
                         existe = false;
 
@@ -323,6 +322,8 @@ public class OrganizacionDatos {
                             }
                         
                             cont--;
+                        } else {
+                            System.out.println("\nError: La clave no se encuentra en la base de datos");
                         }
                         
                         break;

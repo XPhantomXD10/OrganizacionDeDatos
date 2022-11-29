@@ -5,7 +5,7 @@ public class OrganizacionDatos {
 
         // Zona de declaracion
         Scanner leer = new Scanner(System.in);
-        final int TAM_ARRAY = 3;
+        final int TAM_ARRAY = 100;
         int claves[] = new int[TAM_ARRAY];
         String colores[] = new String[TAM_ARRAY];
         String colorAux;
@@ -50,7 +50,7 @@ public class OrganizacionDatos {
 
                                 existe = false;
 
-                                if (claveAux > 0 || claveAux < 111) {
+                                if (claveAux >= 1 && claveAux <= 111) {
                                     for (int i=0; i<cont; i++) {
                                         if (claves[i] == claveAux) {
                                             System.out.println("\nError: La clave ya está registrada en la base de datos\n");
@@ -314,7 +314,7 @@ public class OrganizacionDatos {
                             } while (!(resp2 == 'S' || resp2 == 'N'));
 
                             if (resp2 == 'S') {
-                                for (int x=indice; x<cont; x++) {
+                                for (int x=indice; x<cont-1; x++) {
                                     claves[x] = claves[x+1];
                                     colores[x] = colores[x+1];
                                     cantidades[x] = cantidades[x+1];
